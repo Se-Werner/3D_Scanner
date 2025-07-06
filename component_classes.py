@@ -58,15 +58,15 @@ class StepperMotor:
 
 
 class LidarSensor:
-    def __init__(self, id, sda_pin, scl_pin):
+    def __init__(self, i2c_id, sda_pin, scl_pin):
 
-        self.i2c = I2C(id=id, sda=Pin(sda_pin), scl=Pin(scl_pin))
+        self.i2c = I2C(id=i2c_id, sda=Pin(sda_pin), scl=Pin(scl_pin))
 
         self.sensor = VL53L0X(self.i2c)
         self.sensor.set_measurement_timing_budget(40_000)
-        self.sensor.set_Vcsel_pulse_period(tof.vcsel_period_type[0], 12)
-        self.sensor.tof.set_Vcsel_pulse_period(tof.vcsel_period_type[1], 8)
+        self.sensor.set_Vcsel_pulse_period(self.sensor.vcsel_period_type[0], 12)
+        self.sensor.tof.set_Vcsel_pulse_period(self.sensor.vcsel_period_type[1], 8)
 
     def read(self):
-        measurment_value = self.sensor.ping()
-        return measurment_value
+        measurement_value = self.sensor.ping()
+        return measurement_value
