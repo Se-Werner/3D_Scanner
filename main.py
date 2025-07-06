@@ -42,6 +42,8 @@ home_motor(x_motor, x_button)
 y_motor.move_to_position(50, 0.01)
 x_motor.move_to_position(50, 0.01)
 
+range_sensor.set_zero()
+
 y_motor.release_stepper()
 x_motor.release_stepper()
 

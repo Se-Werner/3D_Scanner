@@ -46,7 +46,7 @@ class StepperMotor:
 
     def move_to_position(self, position, speed):
 
-        target_position = self.max_position * (position / 100)
+        target_position = round(self.max_position * (position / 100), 0)
 
         steps_needed = target_position - self.current_position
         if steps_needed < 0:
@@ -67,6 +67,11 @@ class LidarSensor:
         self.sensor.set_Vcsel_pulse_period(self.sensor.vcsel_period_type[0], 12)
         self.sensor.tof.set_Vcsel_pulse_period(self.sensor.vcsel_period_type[1], 8)
 
+        self.zero = 0
+
     def read(self):
-        measurement_value = self.sensor.ping()
+        measurement_value = self.zero - self.sensor.ping()
         return measurement_value
+
+    def set_zero(self):
+        self.zero = self.sensor.ping()
